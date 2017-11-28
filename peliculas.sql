@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2017 a las 14:55:22
+-- Tiempo de generación: 28-11-2017 a las 09:23:05
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -40,6 +40,40 @@ SELECT a.Nombre, GROUP_CONCAT(DISTINCT p.Titulo)
 FROM peliculas p INNER JOIN actuaciones ac ON ac.idPelicula=p.idPelicula 
 RIGHT JOIN actores a ON ac.idActor=a.idActor 
 GROUP BY a.idActor;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_actor` (IN `p_nombre` VARCHAR(40))  NO SQL
+INSERT INTO actores(nombre) VALUES (p_nombre)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_actor_pelicula` (IN `p_idPelicula` INT, IN `p_idActor` INT)  NO SQL
+BEGIN
+
+
+IF EXISTS (SELECT idPelicula FROM peliculas WHERE idPelicula = p_idPelicula)THEN
+       
+       IF EXISTS (SELECT idActor FROM actores WHERE idActor = p_idActor)THEN
+        
+            INSERT INTO actuaciones(idActor, idPelicula) VALUES 				(p_idActor, p_idPelicula);
+            ELSE SELECT 'No existe ese actor';   
+            END IF;
+ELSE SELECT 'No existe esa pelicula';
+END IF;
+
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_director` (IN `p_nombre` VARCHAR(40))  NO SQL
+INSERT INTO directores(Nombre) VALUES (p_nombre)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_pelicula` (IN `p_titulo` VARCHAR(40), IN `p_anyo` YEAR(4), IN `p_director` INT, IN `p_cartel` VARCHAR(200))  NO SQL
+BEGIN
+
+IF EXISTS (SELECT idDirector FROM directores WHERE idDirector = p_director)THEN
+        INSERT INTO peliculas(titulo, anyo, idDirector, cartel) VALUES 			(p_nombre, p_anyo, p_director, p_cartel);
+ELSE 
+    SELECT 'No existe ese director';
+END IF;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `peliculas_con_actores_v1` ()  NO SQL
@@ -138,6 +172,7 @@ CREATE TABLE `actuaciones` (
 INSERT INTO `actuaciones` (`idActor`, `idPelicula`, `esProtagonista`) VALUES
 (1, 1, 0),
 (1, 4, 0),
+(1, 10, 0),
 (2, 1, 0),
 (2, 3, 0),
 (2, 4, 0),
@@ -183,32 +218,33 @@ CREATE TABLE `peliculas` (
   `idPelicula` int(11) NOT NULL,
   `titulo` varchar(40) NOT NULL,
   `anyo` year(4) NOT NULL,
-  `idDirector` int(11) DEFAULT NULL
+  `idDirector` int(11) DEFAULT NULL,
+  `cartel` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `peliculas`
 --
 
-INSERT INTO `peliculas` (`idPelicula`, `titulo`, `anyo`, `idDirector`) VALUES
-(1, 'Los 16 pesados de clase', 2016, 5),
-(2, 'El negro y la clase', 2017, 3),
-(3, 'Invierno frio', 2011, 4),
-(4, 'Primavera Rojiza', 2015, 2),
-(5, 'Verano Ardiente', 2013, 1),
-(6, 'Verano Caliente', 1999, 5),
-(7, 'Otoño Salado', 1998, 5),
-(8, 'Fast And Furious 1', 1995, 3),
-(9, 'Fast And Furious 2', 2000, 3),
-(10, 'Fast And Furious 3', 2002, 1),
-(11, 'Fast And Furious 4', 2004, 1),
-(12, 'Fast And Furious 5', 2006, 4),
-(13, 'Fast And Furious 6', 2008, 4),
-(14, 'Fast And Furious 7', 2010, 2),
-(15, 'Fast And Furious 8', 2015, 2),
-(16, 'Bordeaux Falling', 2016, 6),
-(17, 'Paris Driving', 2017, 6),
-(18, 'Toy Story', 2017, 1);
+INSERT INTO `peliculas` (`idPelicula`, `titulo`, `anyo`, `idDirector`, `cartel`) VALUES
+(1, 'Los 16 pesados de clase', 2016, 5, ''),
+(2, 'El negro y la clase', 2017, 3, ''),
+(3, 'Invierno frio', 2011, 4, ''),
+(4, 'Primavera Rojiza', 2015, 2, ''),
+(5, 'Verano Ardiente', 2013, 1, ''),
+(6, 'Verano Caliente', 1999, 5, ''),
+(7, 'Otoño Salado', 1998, 5, ''),
+(8, 'Fast And Furious 1', 1995, 3, ''),
+(9, 'Fast And Furious 2', 2000, 3, ''),
+(10, 'Fast And Furious 3', 2002, 1, ''),
+(11, 'Fast And Furious 4', 2004, 1, ''),
+(12, 'Fast And Furious 5', 2006, 4, ''),
+(13, 'Fast And Furious 6', 2008, 4, ''),
+(14, 'Fast And Furious 7', 2010, 2, ''),
+(15, 'Fast And Furious 8', 2015, 2, ''),
+(16, 'Bordeaux Falling', 2016, 6, ''),
+(17, 'Paris Driving', 2017, 6, ''),
+(18, 'Toy Story', 2017, 1, '');
 
 -- --------------------------------------------------------
 
