@@ -30,7 +30,7 @@ $(document).ready(function() {
           peli+='<a href="?pelicula='+dato.idPelicula+'"><img class="imagenPeli" src="'+dato.cartel+'" title="'+dato.titulo+'" alt=" " /></a>';
           peli+='<div class="mid-1">';
           peli+='<div class="w3l-movie-text">';
-          peli+='<h6><a href="single.html">'+dato.titulo+'</a></h6>';
+          peli+='<h6><a href="?pelicula='+dato.idPelicula+'">'+dato.titulo+'</a></h6>';
           peli+='</div>';
           peli+='<div class="mid-2">';
           peli+='<p>'+dato.Año+'</p>';

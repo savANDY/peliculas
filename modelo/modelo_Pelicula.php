@@ -33,6 +33,10 @@ class modelo_pelicula{
          return $this->usuario;
         }
 
+        public function modificar_pelicula($idPelicula,$titulo,$anyo,$director,$cartel){
+             $consulta=$this->link->query("CALL modificar_pelicula('$idPelicula' , '$titulo', '$anyo', '$director', '$cartel')");
+           }
+
 
     public function insertar_ikasle($nombre,$edad,$curso){
         $consulta=$this->link->query("CALL sp_insertar_ikasle('$nombre', '$edad', '$curso')");
@@ -59,9 +63,7 @@ public function borrar_ikasle($ikasle_id){
 
     }
 
-public function modificar_ikasle($id,$nombre,$edad,$curso){
-     $consulta=$this->link->query("CALL sp_modificar_ikasle('$id' , '$nombre', '$edad', '$curso')");
-   }
+
 
 }
 ?>
