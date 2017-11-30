@@ -1,38 +1,25 @@
 <?php
 require_once '../controlador/conector.php';
-class modelo_pelicula{
+class modelo_actor{
     private $link;
-    private $usuario;
+    private $actor;
 
     public function __construct(){
         $this->link=Conectar::conexion();
-        $this->usuario=array();
+        $this->actor=array();
          }
 
-    public function get_peliculas(){
-       $sql="CALL peliculas_con_director()";
+    public function get_actores(){
+       $sql="CALL actores_cuantas_peliculas()";
        $consulta=$this->link->query($sql);
          while ($row = mysqli_fetch_array($consulta, MYSQLI_ASSOC))
            {
-            $this->usuario[]=$row;
+            $this->actor[]=$row;
            }
        $consulta->free_result();
        $this->link->close();
-       return $this->usuario;
+       return $this->actor;
       }
-
-      public function get_detallesPelicula($id){
-         $sql="CALL pelicula_por_id('$id')";
-         $consulta=$this->link->query($sql);
-           while ($row = mysqli_fetch_array($consulta, MYSQLI_ASSOC))
-             {
-              $this->usuario[]=$row;
-             }
-         $consulta->free_result();
-         $this->link->close();
-         return $this->usuario;
-        }
-
 
     public function insertar_ikasle($nombre,$edad,$curso){
         $consulta=$this->link->query("CALL sp_insertar_ikasle('$nombre', '$edad', '$curso')");
@@ -46,7 +33,7 @@ class modelo_pelicula{
         $this->id_ultimo=$row['idMax'];
       $consulta->free_result();
       $this->link->close();
-      return $this->usuario;
+      return $this->actor;
      }
 
 
