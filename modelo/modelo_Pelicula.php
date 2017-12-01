@@ -2,11 +2,11 @@
 require_once '../controlador/conector.php';
 class modelo_pelicula{
   private $link;
-  private $usuario;
+  private $pelicula;
 
   public function __construct(){
     $this->link=Conectar::conexion();
-    $this->usuario=array();
+    $this->pelicula=array();
   }
 
   public function get_peliculas(){
@@ -14,11 +14,11 @@ class modelo_pelicula{
     $consulta=$this->link->query($sql);
     while ($row = mysqli_fetch_array($consulta, MYSQLI_ASSOC))
     {
-      $this->usuario[]=$row;
+      $this->pelicula[]=$row;
     }
     $consulta->free_result();
     $this->link->close();
-    return $this->usuario;
+    return $this->pelicula;
   }
 
   public function get_detallesPelicula($id){
@@ -26,11 +26,11 @@ class modelo_pelicula{
     $consulta=$this->link->query($sql);
     while ($row = mysqli_fetch_array($consulta, MYSQLI_ASSOC))
     {
-      $this->usuario[]=$row;
+      $this->pelicula[]=$row;
     }
     $consulta->free_result();
     $this->link->close();
-    return $this->usuario;
+    return $this->pelicula;
   }
 
   public function modificar_pelicula($idPelicula,$titulo,$anyo,$director,$cartel){
@@ -60,7 +60,18 @@ class modelo_pelicula{
 
   public function borrar_ikasle($ikasle_id){
     $consulta=$this->link->query("CALL sp_borrar_ikasle('$ikasle_id')");
+  }
 
+  public function borrarPelicula($pelicula_id){
+    $sql="CALL borrar_pelicula('$pelicula_id')";
+    $consulta=$this->link->query($sql);
+    while ($row = mysqli_fetch_array($consulta, MYSQLI_ASSOC))
+    {
+      $this->pelicula[]=$row;
+    }
+    $consulta->free_result();
+    $this->link->close();
+    return $this->pelicula;
   }
 
 
