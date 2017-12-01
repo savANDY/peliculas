@@ -261,6 +261,10 @@ i.glyphicon.glyphicon-play-circle {
 	-0- border-radius: 50%;
 	-moz- border-radius: 50%;
 }
+
+
+
+
 .ribben p {
     font-size:0.9em;
     color: #fff;
@@ -278,6 +282,28 @@ i.glyphicon.glyphicon-play-circle {
     border-left: 5px solid transparent;
     transform: rotate(85deg);
 }
+
+.borrar {
+  position: absolute;
+    top: 3%;
+    right: 4%;
+    padding: 20px 0 0 0;
+    background: #f00;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+	-webkit- border-radius: 50%;
+	-0- border-radius: 50%;
+	-moz- border-radius: 50%;
+}
+
+.borrar p {
+    font-size:0.9em;
+    color: #fff;
+	line-height: 0;
+}
+
+
 /*--//w3l-movies-grids--*/
 /*--w3l-latest-movies-grids--*/
 .w3_agile_banner_bottom_grid {
@@ -308,6 +334,13 @@ h4.latest-text {
     top: 3%;
     left: 4%;
 }
+
+.borrar.drch {
+  position: absolute;
+    top: 3%;
+    right: 4%;
+}
+
 .mid-2.agile_mid_2_home.two-single {
     padding: 0 1em;
 }
@@ -370,7 +403,7 @@ ol.breadcrumb li a {
 	.w3l-movie-gride-agile1 {
 		width: 94% !important;
 	}
-	
+
 }
 @media (max-width:991px){
 	.w3l-movie-gride-agile {
@@ -406,7 +439,7 @@ ol.breadcrumb li a {
 			margin-bottom: 4%;
 			float: left;
 			width: 47%;
-		  
+
 	}
 	.blog-pagenat-wthree ul li a {
 		padding: 8px 0.9em;
@@ -420,7 +453,7 @@ ol.breadcrumb li a {
 			float: left;
 			width: 48%;
 			padding:0;
-		  
+
 	}
 }
 @media (max-width:384px){

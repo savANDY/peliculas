@@ -20,5 +20,7 @@ class modelo_director{
        $this->link->close();
        return $this->director;
       }
+
+      
 }
 ?>

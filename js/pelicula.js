@@ -93,9 +93,11 @@ function getDirectores(idDirector) {
           peli+='<td><p class="director" id="'+dato.idDirector+'"><strong>Director: </strong>'+dato.Director+'</p></td>';
           peli+='</tr>';
 
+          if (dato.Actores){
           peli+='<tr>';
           peli+='<td><p><strong>Actores:</strong></p>'+dato.Actores+'</td>';
           peli+='</tr>';
+          }
 
           peli+='</tbody>';
           peli+='</table>';
