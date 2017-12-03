@@ -1,3 +1,3 @@
 <?php
-require_once("vista/actores.html");
+require_once("vista/actores.php");
 ?>

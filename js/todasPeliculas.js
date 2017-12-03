@@ -289,7 +289,7 @@ function getUltimoid() {
 
 idPeli = ultimoId - 1;
 
-alert (ultimoId);
+//alert (ultimoId);
 
   $('body').on("click", "#botonInsertar", function(){
     //alert("boton");
