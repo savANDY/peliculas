@@ -5,6 +5,7 @@ borrarPeli = false;
 botonesAdministrador = "";
 mostrarActores = "";
 esProtagonista = 0;
+var arrayActores = [];
 
 $(document).ready(function() {
 
@@ -103,7 +104,7 @@ $(document).ready(function() {
       dstaType:'json',
       url:"controlador/controlador_consulta_peliculas.php",
       success:function(datos) {
-        //alert(datos)
+        alert(datos)
         midato=JSON.parse(datos)
         var peli = "";
         $.each( midato, function(i,dato) {
@@ -311,7 +312,7 @@ $('body').on("click", "#seleccionarDirector", function(){
   $('body').on("click", "#botonInsertar", function(){
     //alert("boton");
 
-    insertarPelicula();
+
     // getUltimoid();
     idPeli = ultimoId - 1;
 
@@ -326,13 +327,13 @@ $('body').on("click", "#seleccionarDirector", function(){
         if ($(this).val() === idActor) {
           esProtagonista = 1;
         }
-          insertarActuacion(idActor, esProtagonista)
+        arrayActores.push(idActor+"-"+esProtagonista);
+        //alert(arrayActores);
       });
-      location.reload();
+
     });
-
-
-
+    insertarPelicula();
+    //location.reload();
 
   });
 
@@ -359,23 +360,20 @@ $('body').on("click", "#seleccionarDirector", function(){
 
 
   function insertarPelicula(){
+    alert(arrayActores);
     MiTitulo = $('#inputTitulo').val();
     MiAnyo = $('#inputAnyo').val();
-    MiDirector = $('#inputDirector').val();
+    MiDirector = $('#inputSeleccionarDirector').val();
     MiCartel = $('#inputCartel').val();
 
-    // alert (MiId + MiNombre + MiCurso);
     $.ajax({
       type:'POST',
-      data:"submit=&Titulo="+MiTitulo+"&Anyo="+MiAnyo+"&Director="+MiDirector+"&Cartel="+MiCartel,
+      data:"submit=&Titulo="+MiTitulo+"&Anyo="+MiAnyo+"&Director="+MiDirector+"&Cartel="+MiCartel+"&arrayActores="+arrayActores,
       dstaType:'json',
       url:"controlador/controlador_insertar_pelicula.php",
       success:function(datos) {
         alert(datos)
         alert("Se ha añadido con exito")
-
-
-      //  getUltimoid();
       },
       error: function(xhr){
         alert("An error occured: " + xhr.status + " " + xhr.statusText);

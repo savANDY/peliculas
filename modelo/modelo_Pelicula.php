@@ -51,16 +51,32 @@ class modelo_pelicula{
 
 
   public function insertar_pelicula($titulo,$anyo,$director,$cartel){
-    $consulta=$this->link->query("CALL insertar_pelicula('$titulo','$anyo','$director','$cartel')");
+    $sql = "CALL insertar_pelicula('$titulo','$anyo','$director','$cartel')";
+    print $sql;
+    $consulta=$this->link->query($sql);
+
   }
 
-  public function insertar_matricula($ikasle_id,$modulo_id){
-    $consulta=$this->link->query("CALL sp_insertar_matricula('$ikasle_id', '$modulo_id')");
+  public function insertar_actuacion($arrayActuacion){
+    print "array 1 " . $arrayActuacion[0];
+    print "array 2 " . $arrayActuacion[1];
+  //   for($i=0; $i < count($arrayActuacion); $i++){
+  //     $quePartir = $arrayActuacion[$i];
+  //     $partido = explode("-", $quePartir);
+  //     print_r($partido);
+  //     $idActor = $partido[0];
+  //     $esProtagonista = $partido[1];
+  //   $consulta=$this->link->query("CALL insertar_actuacion('$idActor','$esProtagonista')");
+  // }
   }
 
-  public function borrar_ikasle($ikasle_id){
-    $consulta=$this->link->query("CALL sp_borrar_ikasle('$ikasle_id')");
-  }
+  // public function insertar_matricula($ikasle_id,$modulo_id){
+  //   $consulta=$this->link->query("CALL sp_insertar_matricula('$ikasle_id', '$modulo_id')");
+  // }
+  //
+  // public function borrar_ikasle($ikasle_id){
+  //   $consulta=$this->link->query("CALL sp_borrar_ikasle('$ikasle_id')");
+  // }
 
   public function borrarPelicula($pelicula_id){
     $sql="CALL borrar_pelicula('$pelicula_id')";
