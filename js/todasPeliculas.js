@@ -328,7 +328,6 @@ $('body').on("click", "#seleccionarDirector", function(){
           esProtagonista = 1;
         }
         arrayActores.push(idActor+"-"+esProtagonista);
-        //alert(arrayActores);
       });
 
     });
@@ -366,9 +365,12 @@ $('body').on("click", "#seleccionarDirector", function(){
     MiDirector = $('#inputSeleccionarDirector').val();
     MiCartel = $('#inputCartel').val();
 
+
+    jsonArrayActores = JSON.stringify(arrayActores);
+
     $.ajax({
       type:'POST',
-      data:"submit=&Titulo="+MiTitulo+"&Anyo="+MiAnyo+"&Director="+MiDirector+"&Cartel="+MiCartel+"&arrayActores="+arrayActores,
+      data:"submit=&Titulo="+MiTitulo+"&Anyo="+MiAnyo+"&Director="+MiDirector+"&Cartel="+MiCartel+"&arrayActores="+jsonArrayActores,
       dstaType:'json',
       url:"controlador/controlador_insertar_pelicula.php",
       success:function(datos) {

@@ -58,16 +58,16 @@ class modelo_pelicula{
   }
 
   public function insertar_actuacion($arrayActuacion){
-    print "array 1 " . $arrayActuacion[0];
-    print "array 2 " . $arrayActuacion[1];
-  //   for($i=0; $i < count($arrayActuacion); $i++){
-  //     $quePartir = $arrayActuacion[$i];
-  //     $partido = explode("-", $quePartir);
-  //     print_r($partido);
-  //     $idActor = $partido[0];
-  //     $esProtagonista = $partido[1];
-  //   $consulta=$this->link->query("CALL insertar_actuacion('$idActor','$esProtagonista')");
-  // }
+    // print "array entero: " . $arrayActuacion;
+    // print " array 1: " . $arrayActuacion[0];
+    // print " array 2: " . $arrayActuacion[1];
+    for($i=0; $i < count($arrayActuacion); $i++){
+      $partido = explode("-", $arrayActuacion[$i]);
+    //  print_r($partido);
+      $idActor = $partido[0];
+      $esProtagonista = $partido[1];
+    $consulta=$this->link->query("CALL insertar_actuacion('$idActor','$esProtagonista')");
+  }
   }
 
   // public function insertar_matricula($ikasle_id,$modulo_id){

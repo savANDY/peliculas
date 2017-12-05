@@ -8,9 +8,13 @@ $arrayActores = [];
  $anyo = htmlspecialchars(trim($_POST['Anyo']));
  $director = htmlspecialchars(trim($_POST['Director']));
  $cartel = htmlspecialchars(trim($_POST['Cartel']));
-$arrayActores = ($_POST['arrayActores']);
+
+$arrayActores = json_decode(stripslashes($_POST['arrayActores']));
+
+
+print "Array en controlador: " . $arrayActores[1];
 $cont = new modelo_pelicula();
-//$cont->insertar_pelicula($titulo,$anyo,$director,$cartel);
+$cont->insertar_pelicula($titulo,$anyo,$director,$cartel);
 $cont->insertar_actuacion($arrayActores);
 
 ?>
