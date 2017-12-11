@@ -11,10 +11,9 @@ $arrayActores = [];
 
 $arrayActores = json_decode(stripslashes($_POST['arrayActores']));
 
-
-print "Array en controlador: " . $arrayActores[1];
+//print "Array en controlador: " . $arrayActores[1];
 $cont = new modelo_pelicula();
-$cont->insertar_pelicula($titulo,$anyo,$director,$cartel);
-$cont->insertar_actuacion($arrayActores);
+$cont->insertar_pelicula_y_actuaciones($titulo,$anyo,$director,$cartel,$arrayActores);
+//$cont->insertar_actuacion($arrayActores);
 
 ?>

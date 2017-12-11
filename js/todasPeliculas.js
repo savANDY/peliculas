@@ -336,26 +336,26 @@ $('body').on("click", "#seleccionarDirector", function(){
 
   });
 
-  function insertarActuacion(idActor,esProtagonista){
-
-
-    $.ajax({
-      type:'POST',
-      data:"submit=&idActor="+idActor+"&esProtagonista="+esProtagonista,
-      dstaType:'json',
-      url:"controlador/controlador_insertar_actuacion.php",
-      success:function(datos) {
-        //alert(idActor + ", " + esProtagonista);
-        //alert("Se ha añadido con exito")
-        //location.reload();
-
-      },
-      error: function(xhr){
-        alert("An error occured: " + xhr.status + " " + xhr.statusText);
-      }
-    });
-
-  }
+  // function insertarActuacion(idActor,esProtagonista){
+  //
+  //
+  //   $.ajax({
+  //     type:'POST',
+  //     data:"submit=&idActor="+idActor+"&esProtagonista="+esProtagonista,
+  //     dstaType:'json',
+  //     url:"controlador/controlador_insertar_actuacion.php",
+  //     success:function(datos) {
+  //       //alert(idActor + ", " + esProtagonista);
+  //       //alert("Se ha añadido con exito")
+  //       //location.reload();
+  //
+  //     },
+  //     error: function(xhr){
+  //       alert("An error occured: " + xhr.status + " " + xhr.statusText);
+  //     }
+  //   });
+  //
+  // }
 
 
   function insertarPelicula(){
@@ -363,6 +363,9 @@ $('body').on("click", "#seleccionarDirector", function(){
     MiTitulo = $('#inputTitulo').val();
     MiAnyo = $('#inputAnyo').val();
     MiDirector = $('#inputSeleccionarDirector').val();
+    if ($("#inputNuevoDirector").length > 0){
+      MiDirector = $('#inputNuevoDirector').val();
+    }
     MiCartel = $('#inputCartel').val();
 
 

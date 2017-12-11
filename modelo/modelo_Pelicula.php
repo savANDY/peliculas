@@ -50,6 +50,63 @@ class modelo_pelicula{
   }
 
 
+  public function insertar_pelicula_y_actuaciones($titulo,$anyo,$director,$cartel,$arrayActores){
+    $this->link->autocommit(false);
+    $stop = false;
+
+
+    if (!is_int($director)) {
+      $sqlDirector = "CALL insertar_director('$director')";
+
+      $result = $this->link->query($sqlDirector); // Intentamos hacer el primer query
+      if ($this->link->errno) {
+        $stop = true; // Si entro aqui, habra un error, entonces STOP!
+        print "Error: " . $this->link->error . ". ";
+      }
+      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+      $director = $row['ultimoId'];
+
+    @mysqli_next_result($this->$result);
+
+
+    //  $result->free_result();
+  //    $this->link->close();
+    }
+
+
+    $sql1 = "CALL insertar_pelicula('$titulo','$anyo','$director','$cartel')";
+    //print $sql;
+
+    $result = $this->link->query($sql1); // Intentamos hacer el primer query
+    if ($this->link->errno) {
+      $stop = true; // Si entro aqui, habra un error, entonces STOP!
+      print "Error: " . $this->link->error . ". ";
+    }
+
+    for($i=0; (($i < count($arrayActores)) && ($stop == false)); $i++){
+      $partido = explode("-", $arrayActores[$i]);
+
+      $idActor = $partido[0];
+      $esProtagonista = $partido[1];
+
+      $sql2 = "CALL insertar_actuacion('$idActor','$esProtagonista')";
+
+      $result = $this->link->query($sql2); // Intentamos hacer el segundo query
+      if ($this->link->errno) {
+        $stop = true;
+        print "Error: " . $this->link->error . ". ";
+      }
+    }
+
+    if ($stop == false) { // Si no ha habido ningun error, se meteran a la base de datos todos los querys
+      $this->link->commit();
+      print "Datos insertados correctamente";
+    } else {
+      $this->link->rollback(); // Si hay error, se anulan todos los querys
+      print "No se han metido datos a la base de datos";
+    }
+  }
+
   public function insertar_pelicula($titulo,$anyo,$director,$cartel){
     $sql = "CALL insertar_pelicula('$titulo','$anyo','$director','$cartel')";
     print $sql;
@@ -58,25 +115,17 @@ class modelo_pelicula{
   }
 
   public function insertar_actuacion($arrayActuacion){
-    // print "array entero: " . $arrayActuacion;
-    // print " array 1: " . $arrayActuacion[0];
-    // print " array 2: " . $arrayActuacion[1];
+
     for($i=0; $i < count($arrayActuacion); $i++){
       $partido = explode("-", $arrayActuacion[$i]);
-    //  print_r($partido);
+
       $idActor = $partido[0];
       $esProtagonista = $partido[1];
-    $consulta=$this->link->query("CALL insertar_actuacion('$idActor','$esProtagonista')");
-  }
+      $consulta=$this->link->query("CALL insertar_actuacion('$idActor','$esProtagonista')");
+    }
   }
 
-  // public function insertar_matricula($ikasle_id,$modulo_id){
-  //   $consulta=$this->link->query("CALL sp_insertar_matricula('$ikasle_id', '$modulo_id')");
-  // }
-  //
-  // public function borrar_ikasle($ikasle_id){
-  //   $consulta=$this->link->query("CALL sp_borrar_ikasle('$ikasle_id')");
-  // }
+
 
   public function borrarPelicula($pelicula_id){
     $sql="CALL borrar_pelicula('$pelicula_id')";
