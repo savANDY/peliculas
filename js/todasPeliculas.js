@@ -318,12 +318,12 @@ $('body').on("click", "#seleccionarDirector", function(){
 
     $('.actuaCheckBox:checkbox:checked').each(function(){
       esProtagonista = 0;
-      alert ($(this).val());
+      //alert ($(this).val());
       idActor = $(this).val();
 
 
       $('.protagonistaCheckBox:checkbox:checked').each(function(){
-        alert ($(this).val());
+        //alert ($(this).val());
         if ($(this).val() === idActor) {
           esProtagonista = 1;
         }
